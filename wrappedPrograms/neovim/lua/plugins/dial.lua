@@ -1,0 +1,4 @@
+return {
+  "dial.nvim",
+  opts = {},
+}

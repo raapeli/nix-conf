@@ -1,0 +1,4 @@
+return {
+  "lazydev.nvim",
+  opts = {},
+}

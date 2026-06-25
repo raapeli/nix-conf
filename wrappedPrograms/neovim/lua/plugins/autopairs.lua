@@ -1,0 +1,4 @@
+return {
+  "nvim-autopairs",
+  opts = {},
+}
