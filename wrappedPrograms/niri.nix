@@ -13,10 +13,23 @@
       type = lib.types.str;
       default = "kitty";
     };
-    config = {
-      settings = let
-        noctaliaExe = lib.getExe self.packages.${config.pkgs.stdenv.hostPlatform.system}.noctalia-shell;
-      in {
+      config = {
+        settings = let
+          noctaliaExe = "${inputs.noctalia.packages.${config.pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia";
+          rbwPick = config.pkgs.writeShellApplication {
+            name = "rbw-pick";
+            runtimeInputs = [ config.pkgs.rbw config.pkgs.fuzzel config.pkgs.wl-clipboard config.pkgs.pinentry-curses ];
+            text = ''
+              selected=$(rbw list --fields name,user | fuzzel --dmenu -p "bw> " -w 60 -l 15)
+              if [ -n "$selected" ]; then
+                name=$(echo "$selected" | cut -f1)
+                rbw get "$name" | tr -d '\n' | wl-copy
+                (sleep 30 && wl-copy --clear) &
+              fi
+            '';
+          };
+          bwPickCmd = "${lib.getExe rbwPick}";
+        in {
         prefer-no-csd = _: { };
 
         input = {
@@ -33,7 +46,14 @@
           touchpad = {
             natural-scroll = _: { };
             tap = _: { };
+            dwt = _: { };
           };
+        };
+
+        gestures = {
+          hot-corners = {
+            off = _: {};
+         };
         };
 
         binds = {
@@ -55,8 +75,8 @@
           "Mod+Up".focus-window-up = _: { };
           "Mod+Down".focus-window-down = _: { };
 
-	  "Mod+Comma".consume-window-into-column = {};
-	  "Mod+Period".expel-window-from-column = {};
+          "Mod+Comma".consume-window-into-column = {};
+          "Mod+Period".expel-window-from-column = {};
 
           "Mod+Shift+H".move-column-left = _: { };
           "Mod+Shift+L".move-column-right = _: { };
@@ -85,22 +105,29 @@
           "Mod+Shift+9".move-column-to-workspace = "w8";
           "Mod+Shift+0".move-column-to-workspace = "w9";
 
-          "Mod+S".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
+
+          "Mod+Shift+u".set-dynamic-cast-window = _: { };
+          "Mod+S".spawn-sh = "${noctaliaExe} msg panel-toggle launcher";
           "Mod+d".spawn-sh = self.mkWhichKeyExe config.pkgs [
             {
               key = "b";
               desc = "Bluetooth";
-              cmd = "${noctaliaExe} msg bluetooth togglePanel";
+              cmd = "${noctaliaExe} msg panel-toggle control-center";
             }
             {
               key = "w";
               desc = "Wifi";
-              cmd = "${noctaliaExe} msg network togglePanel";
+              cmd = "${noctaliaExe} msg panel-toggle control-center";
             }
             {
               key = "f";
               desc = "Firefox";
               cmd = "firefox";
+            }
+            {
+              key = "p";
+              desc = "Passwords";
+              cmd = bwPickCmd;
             }
             {
               key = "s";
@@ -110,7 +137,7 @@
           ];
           "XF86AudioMicMute".spawn-sh = ''${config.pkgs.alsa-utils}/bin/amixer sset Capture toggle'';
 
-          "Mod+Shift+X".spawn-sh = "${noctaliaExe} ipc call lockScreen lock";
+          "Mod+Shift+X".spawn-sh = "${noctaliaExe} msg session lock";
 
           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+";
@@ -128,7 +155,7 @@
 
           "Mod+Ctrl+S".spawn-sh = ''${lib.getExe config.pkgs.grim} -l 0 - | ${config.pkgs.wl-clipboard}/bin/wl-copy'';
 
-          "Mod+Shift+E".spawn-sh = "${noctaliaExe} ipc call sessionMenu toggle";
+          "Mod+Shift+E".spawn-sh = "${noctaliaExe} msg panel-toggle session";
 
           "Mod+Shift+S".spawn-sh = lib.getExe (config.pkgs.writeShellApplication {
             name = "screenshot";
@@ -137,6 +164,8 @@
               | ${config.pkgs.wl-clipboard}/bin/wl-copy
             '';
           });
+
+          "Mod+B".spawn-sh = bwPickCmd;
 
        };
 
@@ -168,7 +197,27 @@
           lib.getExe config.pkgs.xwayland-satellite;
 
         spawn-at-startup = [
-          (lib.getExe self.packages.${config.pkgs.stdenv.hostPlatform.system}.start-noctalia-shell)
+          "env" "NOCTALIA_CONFIG_HOME=${self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-config}/config" "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia"
+        ];
+
+        window-rules = [
+          {
+            matches = [ { is-window-cast-target = true; } ];
+            focus-ring = {
+              active-color = "#f38ba8";
+              inactive-color = "#7d0d2d";
+            };
+            border = {
+              inactive-color = "#7d0d2d";
+            };
+            shadow = {
+              color = "#7d0d2d70";
+            };
+            tab-indicator = {
+              active-color = "#f38ba8";
+              inactive-color = "#7d0d2d";
+            };
+          }
         ];
       };
     };
@@ -180,9 +229,5 @@
       imports = [self.wrappersModules.niri];
     };
 
-    packages.start-noctalia-shell = pkgs.writeShellScriptBin "start-noctalia-shell" ''
-      sleep 1
-      exec ${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell}
-    '';
   };
 }

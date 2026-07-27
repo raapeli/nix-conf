@@ -1,5 +1,0 @@
-require("opts")
-require("keymap")
-require("autocmds")
-require("lsp-servers")
-require('lz.n').load('plugins')

@@ -1,0 +1,123 @@
+[appLauncher]
+sortByMostUsed = true
+terminalCommand = "alacritty -e"
+
+["bar.main"]
+position = "top"
+
+[["bar.main".widgets.center]]
+id = "Workspace"
+labelMode = "index"
+
+[["bar.main".widgets.center]]
+formatHorizontal = "HH:mm ddd, MMM dd"
+id = "Clock"
+
+[["bar.main".widgets.left]]
+compactMode = true
+id = "SystemMonitor"
+
+[["bar.main".widgets.left]]
+id = "ActiveWindow"
+maxWidth = 145
+
+[["bar.main".widgets.left]]
+id = "MediaMini"
+maxWidth = 145
+showProgressRing = true
+
+[["bar.main".widgets.right]]
+id = "Tray"
+
+[["bar.main".widgets.right]]
+id = "NotificationHistory"
+showUnreadBadge = true
+
+[["bar.main".widgets.right]]
+displayMode = "onhover"
+id = "Network"
+
+[["bar.main".widgets.right]]
+id = "Battery"
+showPowerProfiles = true
+
+[["bar.main".widgets.right]]
+displayMode = "onhover"
+id = "Volume"
+
+[["bar.main".widgets.right]]
+displayMode = "onhover"
+id = "Brightness"
+
+[["bar.main".widgets.right]]
+id = "ControlCenter"
+
+[colorSchemes]
+darkMode = true
+predefinedScheme = "Gruvbox"
+useWallpaperColors = false
+
+[controlCenter]
+position = "close_to_bar_button"
+
+[[controlCenter.shortcuts.left]]
+id = "Network"
+
+[[controlCenter.shortcuts.left]]
+id = "Bluetooth"
+
+[[controlCenter.shortcuts.left]]
+id = "WallpaperSelector"
+
+[[controlCenter.shortcuts.left]]
+id = "NoctaliaPerformance"
+
+[[controlCenter.shortcuts.right]]
+id = "Notifications"
+
+[[controlCenter.shortcuts.right]]
+id = "PowerProfile"
+
+[[controlCenter.shortcuts.right]]
+id = "KeepAwake"
+
+[[controlCenter.shortcuts.right]]
+id = "NightLight"
+
+[general]
+avatarImage = "/home/aapeli/.face"
+clockFormat = 'hh\nmm'
+clockStyle = "custom"
+enableBlurBehind = true
+enableShadows = true
+lockOnSuspend = true
+
+[idle]
+enabled = true
+lockTimeout = 120
+screenOffTimeout = 60
+suspendTimeout = 1800
+
+[location]
+name = "Espoo"
+weatherEnabled = true
+
+[notifications]
+enabled = true
+location = "top_right"
+
+[sessionMenu]
+enableCountdown = false
+
+[theme]
+builtin = "Gruvbox"
+mode = "dark"
+source = "builtin"
+
+[wallpaper]
+directory = "/home/aapeli/mynix"
+enabled = true
+setWallpaperOnAllMonitors = true
+skipStartupTransition = true
+transitionType = ["fade"]
+viewMode = "single"

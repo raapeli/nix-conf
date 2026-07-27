@@ -1,4 +1,0 @@
-return {
-  "lazydev.nvim",
-  opts = {},
-}

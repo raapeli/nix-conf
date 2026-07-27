@@ -1,144 +1,302 @@
 {
-  inputs,
   self,
+  inputs,
   ...
-}: let
-  inherit (inputs.nixpkgs) lib;
-in {
-  flake.modules.neovim.main = {
-    config,
-    wlib,
-    lib,
-    pkgs,
-    ...
-  }: {
-    options = {
-      dynamicMode = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = ''
-          If true, use impure config for fast edits
-        '';
-      };
-      initLua = lib.mkOption {
-        type = wlib.types.stringable;
-        default = ./.;
-      };
-      dynamicInitLua = lib.mkOption {
-        type = lib.types.either wlib.types.stringable lib.types.luaInline;
-        default = lib.generators.mkLuaInline "vim.uv.os_homedir() .. '/mynix/wrappedPrograms/neovim'";
-      };
-    };
-    config = let
-      compile-mode-nvim = pkgs.stdenv.mkDerivation {
-        name = "compile-mode-nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "ej-shafran";
-          repo = "compile-mode.nvim";
-          rev = "dd3e952076a33faba0a55b04b2b73945832c0527";
-          hash = "sha256-aaQ4CVJMUdNBJUYCYowXxd1oCnssnjPbpOEzIE8H+m8=";
+}: {
+  perSystem = {pkgs, ...}: {
+    packages.neovim = inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
+      inherit pkgs;
+      module = {
+        colorschemes.gruvbox.enable = true;
+
+        opts = {
+          number = true;
+          relativenumber = true;
+          shiftwidth = 2;
+          tabstop = 2;
+          expandtab = true;
+          smartindent = true;
+          wrap = true;
+          mouse = "a";
+          clipboard = "unnamedplus";
+          splitright = true;
+          splitbelow = true;
+          termguicolors = true;
+          hidden = true;
+          swapfile = false;
+          undofile = true;
+          scrolloff = 8;
+          updatetime = 300;
+          signcolumn = "yes";
         };
-        dontBuild = true;
-        dontConfigure = true;
-        installPhase = ''
-          mkdir -p $out
-          cp -r lua plugin after doc $out/ 2>/dev/null || true
-        '';
-      };
-    in {
-      settings.config_directory =
-        if config.dynamicMode
-        then config.dynamicInitLua
-        else config.initLua;
 
-      runtimePkgs = [
-        pkgs.ffmpeg-full
-        pkgs.wl-clipboard
-        pkgs.ripgrep
-        pkgs.fd
-      ];
+        globals = {
+          mapleader = " ";
+          maplocalleader = " ";
+        };
 
-      specs.init = {
-        data = null;
-        before = ["MAIN_INIT"];
-        config = "require('init')";
-      };
-
-      specs.plugins = {
-        data = with pkgs.vimPlugins; [
-          lz-n
-          plenary-nvim
-          which-key-nvim
-          nvim-lspconfig
-          nvim-treesitter.withAllGrammars
-          nvim-treesitter-textobjects
-          blink-cmp
-          vim-sleuth
-          lualine-nvim
-          snacks-nvim
-          luasnip
-          friendly-snippets
-        ] ++ [compile-mode-nvim];
-      };
-
-      specs.lazyPlugins = {
-        lazy = true;
-        data = [
-          pkgs.vimPlugins.gitsigns-nvim
-          pkgs.vimPlugins.bufferline-nvim
-          pkgs.vimPlugins.trouble-nvim
-          pkgs.vimPlugins.todo-comments-nvim
-          pkgs.vimPlugins.noice-nvim
-          pkgs.vimPlugins.nui-nvim
-          pkgs.vimPlugins.nvim-notify
-          pkgs.vimPlugins.lazydev-nvim
-          pkgs.vimPlugins.conform-nvim
-          pkgs.vimPlugins.flash-nvim
-          pkgs.vimPlugins.dial-nvim
-          pkgs.vimPlugins.yanky-nvim
-          pkgs.vimPlugins.persistence-nvim
-          pkgs.vimPlugins.nvim-autopairs
-          pkgs.vimPlugins.mini-ai
-          pkgs.vimPlugins.mini-surround
-          pkgs.vimPlugins.mini-comment
-          pkgs.vimPlugins.mini-hipatterns
-          pkgs.vimPlugins.mini-icons
-          pkgs.vimPlugins.mini-pairs
-          pkgs.vimPlugins.tokyonight-nvim
-          pkgs.vimPlugins.ts-comments-nvim
-          pkgs.vimPlugins.nvim-ts-autotag
-          pkgs.vimPlugins.nvim-dap
-          pkgs.vimPlugins.nvim-dap-ui
-          pkgs.vimPlugins.nvim-dap-virtual-text
-          pkgs.vimPlugins.nvim-nio
+        keymaps = [
+          {
+            mode = "n";
+            key = "L";
+            action = "<cmd>BufferLineCycleNext<CR>";
+            options.desc = "Next buffer";
+          }
+          {
+            mode = "n";
+            key = "H";
+            action = "<cmd>BufferLineCyclePrev<CR>";
+            options.desc = "Prev buffer";
+          }
+          {
+            mode = "n";
+            key = "<leader>w";
+            action = "<cmd>w<CR>";
+            options.desc = "Save";
+          }
+          {
+            mode = "n";
+            key = "<leader>q";
+            action = "<cmd>q<CR>";
+            options.desc = "Quit";
+          }
+          {
+            mode = "n";
+            key = "<leader>e";
+            action = "<cmd>Oil<CR>";
+            options.desc = "File explorer";
+          }
+          {
+            mode = "n";
+            key = "<leader>ff";
+            action = "<cmd>Telescope find_files<CR>";
+            options.desc = "Find files";
+          }
+          {
+            mode = "n";
+            key = "<leader>fg";
+            action = "<cmd>Telescope live_grep<CR>";
+            options.desc = "Live grep";
+          }
+          {
+            mode = "n";
+            key = "<leader>fb";
+            action = "<cmd>Telescope buffers<CR>";
+            options.desc = "Find buffers";
+          }
+          {
+            mode = "n";
+            key = "<leader>fh";
+            action = "<cmd>Telescope help_tags<CR>";
+            options.desc = "Help tags";
+          }
+          {
+            mode = "n";
+            key = "K";
+            action = "<cmd>lua vim.lsp.buf.hover()<CR>";
+            options.desc = "LSP hover";
+          }
+          {
+            mode = "n";
+            key = "gd";
+            action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+            options.desc = "LSP definition";
+          }
+          {
+            mode = "n";
+            key = "gD";
+            action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+            options.desc = "LSP declaration";
+          }
+          {
+            mode = "n";
+            key = "<leader>ca";
+            action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+            options.desc = "LSP code action";
+          }
+          {
+            mode = "n";
+            key = "<leader>rn";
+            action = "<cmd>lua vim.lsp.buf.rename()<CR>";
+            options.desc = "LSP rename";
+          }
+          {
+            mode = "n";
+            key = "gi";
+            action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+            options.desc = "LSP implementation";
+          }
+          {
+            mode = "n";
+            key = "gt";
+            action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
+            options.desc = "LSP type definition";
+          }
+          {
+            mode = "n";
+            key = "<leader>d";
+            action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+            options.desc = "Diagnostic float";
+          }
+          {
+            mode = "n";
+            key = "]d";
+            action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
+            options.desc = "Next diagnostic";
+          }
+          {
+            mode = "n";
+            key = "[d";
+            action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
+            options.desc = "Prev diagnostic";
+          }
+          {
+            mode = "n";
+            key = "]c";
+            action = "<cmd>Gitsigns next_hunk<CR>";
+            options.desc = "Next hunk";
+          }
+          {
+            mode = "n";
+            key = "[c";
+            action = "<cmd>Gitsigns prev_hunk<CR>";
+            options.desc = "Prev hunk";
+          }
+          {
+            mode = "n";
+            key = "<leader>hs";
+            action = "<cmd>Gitsigns stage_hunk<CR>";
+            options.desc = "Stage hunk";
+          }
+          {
+            mode = "v";
+            key = "<leader>hs";
+            action = "<cmd>Gitsigns stage_hunk<CR>";
+            options.desc = "Stage hunk";
+          }
+          {
+            mode = "n";
+            key = "<leader>hr";
+            action = "<cmd>Gitsigns reset_hunk<CR>";
+            options.desc = "Reset hunk";
+          }
+          {
+            mode = "n";
+            key = "<leader>hb";
+            action = "<cmd>Gitsigns blame_line<CR>";
+            options.desc = "Blame";
+          }
+          {
+            mode = "n";
+            key = "<leader>hd";
+            action = "<cmd>Gitsigns diffthis<CR>";
+            options.desc = "Diff this";
+          }
         ];
+
+        autoGroups = {
+          lsp_attach = {};
+        };
+
+        autoCmd = [
+          {
+            event = "LspAttach";
+            group = "lsp_attach";
+            callback.__raw = ''
+              function(args)
+                local bufnr = args.buf
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if client.server_capabilities.inlayHintProvider then
+                  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end
+              end
+            '';
+          }
+        ];
+
+        plugins = {
+          lualine.enable = true;
+
+          bufferline.enable = true;
+
+          which-key.enable = true;
+
+          telescope.enable = true;
+
+          treesitter = {
+            enable = true;
+            settings = {
+              highlight.enable = true;
+              indent.enable = true;
+            };
+          };
+
+          lsp = {
+            enable = true;
+            servers = {
+              gopls.enable = true;
+              rust_analyzer = {
+                enable = true;
+                installCargo = true;
+                installRustc = true;
+              };
+              nil_ls.enable = true;
+              nixd.enable = true;
+              pyright.enable = true;
+              ts_ls.enable = true;
+              lua_ls.enable = true;
+            };
+          };
+
+          cmp = {
+            enable = true;
+            settings = {
+              mapping = {
+                "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+                "<C-f>" = "cmp.mapping.scroll_docs(4)";
+                "<C-Space>" = "cmp.mapping.complete()";
+                "<C-e>" = "cmp.mapping.abort()";
+                "<CR>" = "cmp.mapping.confirm({ select = true })";
+                "<TAB>" = ''
+                  function(fallback)
+                    if cmp.visible() then
+                      cmp.select_next_item()
+                    else
+                      fallback()
+                    end
+                  end
+                '';
+              };
+              sources = [
+                {name = "nvim_lsp";}
+                {name = "path";}
+                {name = "buffer";}
+              ];
+            };
+          };
+
+          oil = {
+            enable = true;
+            settings.default_file_explorer = true;
+          };
+
+          gitsigns = {
+            enable = true;
+            settings.current_line_blame = true;
+          };
+
+          comment.enable = true;
+
+          todo-comments.enable = true;
+
+          mini = {
+            enable = true;
+            modules.icons = {};
+          };
+
+          web-devicons.enable = true;
+        };
       };
-
-      env.LADSPA_PATH = "${pkgs.deepfilternet}lib/ladspa/libdeep_filter_ladspa.so";
-    };
-  };
-
-  perSystem = {
-    pkgs,
-    self',
-    ...
-  }: {
-    packages.neovim = inputs.wrapper-modules.wrappers.neovim.wrap {
-      inherit pkgs;
-      imports = [
-        self.modules.neovim.main
-        self.modules.neovim.lua
-        self.modules.neovim.nix
-      ];
-    };
-
-    packages.neovimDynamic = inputs.wrapper-modules.wrappers.neovim.wrap {
-      inherit pkgs;
-      dynamicMode = true;
-      imports = [
-        self.modules.neovim.main
-        self.modules.neovim.allServers
-      ];
     };
   };
 }

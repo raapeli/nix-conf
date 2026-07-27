@@ -84,23 +84,7 @@
    services.blueman.enable = true;
 
 
-    services.tlp = {
-     enable = true;
-     settings = {
-       CPU_SCALING_GOVERNOR_ON_AC = "performance";
-       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-       CPU_MIN_PERF_ON_AC = 0;
-       CPU_MAX_PERF_ON_AC = 100;
-       CPU_MIN_PERF_ON_BAT = 0;
-       CPU_MAX_PERF_ON_BAT = 20;
-
-     };
-    };
-    services.thermald.enable = true;
+   services.thermald.enable = true;
 
     services.logind.settings.Login = {
       HandleLidSwitch = "poweroff";
@@ -145,6 +129,16 @@
     };
 
     services.upower.enable = true;
+    services.tuned.enable = true;
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gnome
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      configPackages = [ pkgs.niri ];
+    };
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -162,9 +156,13 @@
       dates = "weekly";
       options = "--delete-older-than 14d";
     };
-    nix.settings.auto-optimise-store = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings = { 
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
 
+        extra-substituters = [ "https://noctalia.cachix.org" ];
+  extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+    };
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
@@ -180,6 +178,9 @@
       gh
       cargo
       clang gcc
+      rbw
+      pinentry-curses
+      fuzzel
     ];
 
     nix.settings = {
