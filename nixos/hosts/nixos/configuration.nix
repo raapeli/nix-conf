@@ -182,7 +182,6 @@
       gh
       cargo
       clang gcc
-      rbw
       pinentry-curses
       fuzzel
       ddcutil

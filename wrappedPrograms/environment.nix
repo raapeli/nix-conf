@@ -28,6 +28,12 @@
         pkgs.p7zip
         pkgs.wget
         pkgs.lf
+        pkgs.rbw
+
+        # wrapped
+        self'.packages.git
+        self'.packages.jujutsu
+        self'.packages.jjui
       ];
       env = {
         EDITOR = lib.getExe self'.packages.neovim;

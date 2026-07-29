@@ -22,21 +22,22 @@
     packages.jujutsu = let
       logCommand = ["log"];
     in
-      (inputs.wrappers.wrappersModules.jujutsu.apply {
+      (inputs.wrappers.wrapperModules.jujutsu.apply {
         inherit pkgs;
         settings = {
           user = {
             name = "raapeli";
             email = "aapeli@rautiainen.info";
-        };
-        aliases = {
-          l = logCommand;    
-        };
-        ui = {
-          default-command = logCommand;
-        };
-        snapshot = {
-          max-new-file-size = "15MiB";
+          };
+          aliases = {
+            l = logCommand;    
+          };
+          ui = {
+            default-command = logCommand;
+          };
+          snapshot = {
+            max-new-file-size = "15MiB";
+          };
         };
       }).wrapper;
     };
