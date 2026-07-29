@@ -15,7 +15,7 @@
     };
       config = {
         settings = let
-          noctaliaExe = "${inputs.noctalia.packages.${config.pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia";
+          noctaliaExe = lib.getExe self.packages.${config.pkgs.stdenv.hostPlatform.system}.noctalia;
           rbwPick = config.pkgs.writeShellApplication {
             name = "rbw-pick";
             runtimeInputs = [ config.pkgs.rbw config.pkgs.fuzzel config.pkgs.wl-clipboard config.pkgs.pinentry-curses ];
