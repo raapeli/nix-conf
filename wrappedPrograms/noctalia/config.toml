@@ -2,55 +2,61 @@
 sortByMostUsed = true
 terminalCommand = "alacritty -e"
 
+[bar.default]
+background_opacity = 0.79999998211860657
+concave_edge_corners = false
+margin_ends = 0
+start = [ "workspaces" ]
+
 ["bar.main"]
 position = "top"
 
-[["bar.main".widgets.center]]
-id = "Workspace"
-labelMode = "index"
+    [["bar.main".widgets.center]]
+    id = "Workspace"
+    labelMode = "index"
 
-[["bar.main".widgets.center]]
-formatHorizontal = "HH:mm ddd, MMM dd"
-id = "Clock"
+    [["bar.main".widgets.center]]
+    formatHorizontal = "HH:mm ddd, MMM dd"
+    id = "Clock"
 
-[["bar.main".widgets.left]]
-compactMode = true
-id = "SystemMonitor"
+    [["bar.main".widgets.left]]
+    compactMode = true
+    id = "SystemMonitor"
 
-[["bar.main".widgets.left]]
-id = "ActiveWindow"
-maxWidth = 145
+    [["bar.main".widgets.left]]
+    id = "ActiveWindow"
+    maxWidth = 145
 
-[["bar.main".widgets.left]]
-id = "MediaMini"
-maxWidth = 145
-showProgressRing = true
+    [["bar.main".widgets.left]]
+    id = "MediaMini"
+    maxWidth = 145
+    showProgressRing = true
 
-[["bar.main".widgets.right]]
-id = "Tray"
+    [["bar.main".widgets.right]]
+    id = "Tray"
 
-[["bar.main".widgets.right]]
-id = "NotificationHistory"
-showUnreadBadge = true
+    [["bar.main".widgets.right]]
+    id = "NotificationHistory"
+    showUnreadBadge = true
 
-[["bar.main".widgets.right]]
-displayMode = "onhover"
-id = "Network"
+    [["bar.main".widgets.right]]
+    displayMode = "onhover"
+    id = "Network"
 
-[["bar.main".widgets.right]]
-id = "Battery"
-showPowerProfiles = true
+    [["bar.main".widgets.right]]
+    id = "Battery"
+    showPowerProfiles = true
 
-[["bar.main".widgets.right]]
-displayMode = "onhover"
-id = "Volume"
+    [["bar.main".widgets.right]]
+    displayMode = "onhover"
+    id = "Volume"
 
-[["bar.main".widgets.right]]
-displayMode = "onhover"
-id = "Brightness"
+    [["bar.main".widgets.right]]
+    displayMode = "onhover"
+    id = "Brightness"
 
-[["bar.main".widgets.right]]
-id = "ControlCenter"
+    [["bar.main".widgets.right]]
+    id = "ControlCenter"
 
 [colorSchemes]
 darkMode = true
@@ -60,33 +66,33 @@ useWallpaperColors = false
 [controlCenter]
 position = "close_to_bar_button"
 
-[[controlCenter.shortcuts.left]]
-id = "Network"
+    [[controlCenter.shortcuts.left]]
+    id = "Network"
 
-[[controlCenter.shortcuts.left]]
-id = "Bluetooth"
+    [[controlCenter.shortcuts.left]]
+    id = "Bluetooth"
 
-[[controlCenter.shortcuts.left]]
-id = "WallpaperSelector"
+    [[controlCenter.shortcuts.left]]
+    id = "WallpaperSelector"
 
-[[controlCenter.shortcuts.left]]
-id = "NoctaliaPerformance"
+    [[controlCenter.shortcuts.left]]
+    id = "NoctaliaPerformance"
 
-[[controlCenter.shortcuts.right]]
-id = "Notifications"
+    [[controlCenter.shortcuts.right]]
+    id = "Notifications"
 
-[[controlCenter.shortcuts.right]]
-id = "PowerProfile"
+    [[controlCenter.shortcuts.right]]
+    id = "PowerProfile"
 
-[[controlCenter.shortcuts.right]]
-id = "KeepAwake"
+    [[controlCenter.shortcuts.right]]
+    id = "KeepAwake"
 
-[[controlCenter.shortcuts.right]]
-id = "NightLight"
+    [[controlCenter.shortcuts.right]]
+    id = "NightLight"
 
 [general]
 avatarImage = "/home/aapeli/.face"
-clockFormat = 'hh\nmm'
+clockFormat = "hh\\nmm"
 clockStyle = "custom"
 enableBlurBehind = true
 enableShadows = true
@@ -99,8 +105,43 @@ screenOffTimeout = 60
 suspendTimeout = 1800
 
 [location]
+address = "Espoo, Finland"
 name = "Espoo"
 weatherEnabled = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 229.0
+    box_width = 810.0
+    cx = 768.0
+    cy = 665.5
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_weather = true
 
 [notifications]
 enabled = true
@@ -111,13 +152,24 @@ enableCountdown = false
 
 [theme]
 builtin = "Gruvbox"
+community_palette = "Oxocarbon"
 mode = "dark"
 source = "builtin"
+wallpaper_scheme = "m3-content"
 
 [wallpaper]
 directory = "/home/aapeli/mynix"
 enabled = true
 setWallpaperOnAllMonitors = true
 skipStartupTransition = true
-transitionType = ["fade"]
+transitionType = [ "fade" ]
 viewMode = "single"
+
+    [wallpaper.default]
+    path = "/home/aapeli/mynix/gruvbox-mountain-village.png"
+
+    [wallpaper.last]
+    path = "/home/aapeli/mynix/gruvbox-mountain-village.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/aapeli/mynix/gruvbox-mountain-village.png"

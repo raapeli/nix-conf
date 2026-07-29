@@ -170,7 +170,7 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
-      git wget curl htop  fd
+      wget curl htop  fd
       unzip p7zip
       brightnessctl
       acpi
@@ -185,6 +185,8 @@
       rbw
       pinentry-curses
       fuzzel
+      ddcutil
+      python3
     ];
 
     nix.settings = {

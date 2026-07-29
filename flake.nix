@@ -7,11 +7,14 @@
     };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/55dd9a2b5b2549693c0af87d588ff00500350995";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     wrappers.url = "github:Lassulus/wrappers";
 

@@ -15,7 +15,7 @@
           shiftwidth = 2;
           tabstop = 2;
           expandtab = true;
-          smartindent = true;
+          autoindent = true;
           wrap = true;
           mouse = "a";
           clipboard = "unnamedplus";
@@ -291,7 +291,10 @@
 
           mini = {
             enable = true;
-            modules.icons = {};
+            modules = {
+              icons = {};
+              pairs = {};
+            };
           };
 
           web-devicons.enable = true;

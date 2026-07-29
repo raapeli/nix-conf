@@ -112,12 +112,12 @@
             {
               key = "b";
               desc = "Bluetooth";
-              cmd = "${noctaliaExe} msg panel-toggle control-center";
+              cmd = "${noctaliaExe} msg panel-toggle bluetooth";
             }
             {
               key = "w";
               desc = "Wifi";
-              cmd = "${noctaliaExe} msg panel-toggle control-center";
+              cmd = "${noctaliaExe} msg panel-toggle wifi";
             }
             {
               key = "f";
@@ -197,7 +197,7 @@
           lib.getExe config.pkgs.xwayland-satellite;
 
         spawn-at-startup = [
-          "env" "NOCTALIA_CONFIG_HOME=${self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-config}/config" "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia"
+          "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia}"
         ];
 
         window-rules = [

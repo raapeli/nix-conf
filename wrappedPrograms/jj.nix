@@ -1,0 +1,73 @@
+{
+  inputs,
+  self,
+  ...
+  }: {
+  perSystem = { pkgs, ... }: let
+    defaultRevset= "all()";
+  in {
+    packages.jjui =
+      (self.wrappersModules.jjui.apply {
+        inherit pkgs;
+        settings = {
+          preview = {
+            show_at_start = true;
+          };
+      };
+      flags = {
+        "-r" = defaultRevset;    
+    };
+  }).wrapper;
+
+    packages.jujutsu = let
+      logCommand = ["log"];
+    in
+      (inputs.wrappers.wrappersModules.jujutsu.apply {
+        inherit pkgs;
+        settings = {
+          user = {
+            name = "raapeli";
+            email = "aapeli@rautiainen.info";
+        };
+        aliases = {
+          l = logCommand;    
+        };
+        ui = {
+          default-command = logCommand;
+        };
+        snapshot = {
+          max-new-file-size = "15MiB";
+        };
+      }).wrapper;
+    };
+  flake.wrappersModules.jjui = inputs.wrappers.lib.wrapModule (
+    {
+      config,
+      lib,
+      ...
+    }: let
+      tomlFormat = config.pkgs.formats.toml {};
+    in {
+      options = {
+        settings = lib.mkOption {
+          type = tomlFormat.type;
+        };
+      };
+
+      config = {
+        package = config.pkgs.jjui;
+
+        env = {
+          JJUI_CONFIG_DIR = let
+            generatedFile = tomlFormat.generate "config.toml" config.settings;
+
+            configDir = config.pkgs.runCommand "jjui-config-dir" {} ''
+              mkdir -p $out
+              cp ${generatedFile} $out/config.toml
+            '';
+          in "${configDir}";
+        };
+      };
+    }
+  );
+}
