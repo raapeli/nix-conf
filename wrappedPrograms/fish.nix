@@ -39,6 +39,10 @@
             nvim ~aapeli/mynix/nixos/hosts/nixos/configuration.nix +163
         end
 
+        function npl --description="Open config to add a package only to current env"
+            nvim ~aapeli/mynix/wrappedPrograms/environment.nix +33
+        end
+
         function nfu --description="Update nix flake"
             set -l prev (pwd)
             cd ~aapeli/mynix; and nix flake update; or begin; cd $prev; return 1; end
