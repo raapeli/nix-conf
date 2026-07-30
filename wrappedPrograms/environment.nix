@@ -29,6 +29,7 @@
         pkgs.wget
         pkgs.lf
         pkgs.rbw
+        pkgs.shotwell
 
         # wrapped
         self'.packages.git
