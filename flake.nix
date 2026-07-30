@@ -5,7 +5,7 @@
     };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/55dd9a2b5b2549693c0af87d588ff00500350995";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
