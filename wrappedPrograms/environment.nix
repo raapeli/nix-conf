@@ -30,11 +30,18 @@
         pkgs.lf
         pkgs.rbw
         pkgs.shotwell
+        pkgs.cargo
+        pkgs.clang pkgs.gcc
+        pkgs.pinentry-curses
+        pkgs.fuzzel
+        pkgs.ddcutil
 
         # wrapped
         self'.packages.git
         self'.packages.jujutsu
         self'.packages.jjui
+        self'.packages.kitty
+        self'.packages.neovim
       ];
       env = {
         EDITOR = lib.getExe self'.packages.neovim;

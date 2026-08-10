@@ -177,15 +177,8 @@
       pavucontrol
       vim
       file
-      self.packages.${pkgs.system}.kitty
-      self.packages.${pkgs.system}.neovim
       gh
-      cargo
-      clang gcc
-      pinentry-curses
-      fuzzel
-      ddcutil
-      python3
+        python3
     ];
 
     nix.settings = {
