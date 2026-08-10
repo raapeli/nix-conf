@@ -4,8 +4,8 @@
   ...
 }: {
   perSystem = {pkgs, ...}: {
-    packages.neovim = inputs.nixvim.legacyPackages.${pkgs.system}.makeNixvimWithModule {
-      inherit pkgs;
+    packages.neovim = inputs.nixvim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.makeNixvimWithModule {
+    inherit pkgs;
       module = {
         colorschemes.gruvbox.enable = true;
 
