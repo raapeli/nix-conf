@@ -26,6 +26,7 @@
     systemd.tpm2.enable = false;
     boot.initrd.systemd.tpm2.enable = false;
 
+
     networking.hostName = "nixos"; # Define your hostname.
 
     # Enable networking
@@ -180,7 +181,7 @@
       vim
       file
       gh
-        python3
+      python3
     ];
 
     nix.settings = {
@@ -200,6 +201,11 @@
 
     # Enable the OpenSSH daemon.
      services.openssh.enable = true;
+
+    #Tmpfiles
+    systemd.tmpfiles.rules = [
+      "L+ /home/aapeli/Documents/todo - - - - /home/aapeli/sync/todo"
+    ];
 
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];

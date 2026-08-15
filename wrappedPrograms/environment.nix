@@ -35,6 +35,7 @@
         pkgs.pinentry-curses
         pkgs.fuzzel
         pkgs.ddcutil
+        pkgs.tuxedo
 
         # wrapped
         self'.packages.git
@@ -45,6 +46,7 @@
       ];
       env = {
         EDITOR = lib.getExe self'.packages.neovim;
+        TODO_DIR = "/home/aapeli/Documents/todo";
       };
     };
   };
