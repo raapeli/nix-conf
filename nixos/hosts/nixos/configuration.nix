@@ -4,7 +4,7 @@
     modules = [ self.nixosModules.hostNixos ];
   };
 
-  flake.nixosModules.hostNixos = {pkgs, lib, self, ... }: {
+  flake.nixosModules.hostNixos = { pkgs, self, ... }: {
     imports =
       [
         self.nixosModules.nixosHardware

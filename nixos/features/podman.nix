@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{
   flake.nixosModules.podman = { pkgs, ... }: {
     virtualisation.podman = {
       enable = true;
