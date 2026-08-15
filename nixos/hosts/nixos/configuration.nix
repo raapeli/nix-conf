@@ -10,6 +10,7 @@
         self.nixosModules.nixosHardware
         self.nixosModules.firefox
         self.nixosModules.podman
+        self.nixosModules.tailscale
         inputs.nix-index-database.nixosModules.default
         { programs.nix-index-database.comma.enable = true; }
       ];
