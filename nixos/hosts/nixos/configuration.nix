@@ -11,6 +11,7 @@
         self.nixosModules.firefox
         self.nixosModules.podman
         self.nixosModules.tailscale
+        self.nixosModules.syncthing
         inputs.nix-index-database.nixosModules.default
         { programs.nix-index-database.comma.enable = true; }
       ];
