@@ -35,29 +35,8 @@
             end
         end
 
-        function npi --description="Open config to add a package declaratively"
-            nvim ~aapeli/mynix/nixos/hosts/nixos/configuration.nix +163
-        end
-
-        function npl --description="Open config to add a package only to current env"
-            nvim ~aapeli/mynix/wrappedPrograms/environment.nix +33
-        end
-
-        function nfu --description="Update nix flake"
-            set -l prev (pwd)
-            cd ~aapeli/mynix; and nix flake update; or begin; cd $prev; return 1; end
-            cd $prev
-        end
-
-        function nru --description="Update nix flake and rebuild switch"
-            set -l prev (pwd)
-            cd ~aapeli/mynix; and nix flake update; or begin; cd $prev; return 1; end
-            sudo nixos-rebuild switch --flake ~aapeli/mynix; or begin; cd $prev; return 1; end
-            cd $prev
-        end
-
-        function nixup --description="Alias for nru"
-            nru $argv
+        function nru --description="Update flake inputs and rebuild switch"
+            nh os switch --update
         end
 
         if type -q direnv
@@ -146,12 +125,6 @@
         gup = "git pull --rebase";
         gwch = "git whatchanged";
         wtf = "git-wtf";
-
-        # Nix/NixOS
-        nrs = "sudo nixos-rebuild switch --flake ~aapeli/mynix";
-        nrt = "sudo nixos-rebuild test --flake ~aapeli/mynix";
-        nrb = "sudo nixos-rebuild boot --flake ~aapeli/mynix";
-        nrc = "sudo nix-collect-garbage -d";
 
       };
 

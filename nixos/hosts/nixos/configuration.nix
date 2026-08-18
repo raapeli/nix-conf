@@ -157,12 +157,7 @@
       noto-fonts-color-emoji
     ];
 
-    nix.gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
-    nix.settings = { 
+     nix.settings = { 
       auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
       experimental-features = [ "nix-command" "flakes" ];
@@ -196,6 +191,13 @@
        enable = true;
        enableSSHSupport = true;
      };
+
+    programs.nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/aapeli/mynix";
+    };
 
     # List services that you want to enable:
 
