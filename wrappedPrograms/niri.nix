@@ -223,7 +223,7 @@
     };
   };
 
-  perSystem = {pkgs, lib, ...}: {
+  perSystem = {pkgs, ...}: {
     packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       imports = [self.wrappersModules.niri];

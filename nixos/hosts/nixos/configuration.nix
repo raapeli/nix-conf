@@ -4,7 +4,9 @@
     modules = [ self.nixosModules.hostNixos ];
   };
 
-  flake.nixosModules.hostNixos = { pkgs, self, ... }: {
+  flake.nixosModules.hostNixos = { pkgs, self, lib, ... }:   
+    let selfPkgs = self.packages.${pkgs.stdenv.hostPlatform.system};
+  in {
     imports =
       [
         self.nixosModules.nixosHardware
@@ -52,9 +54,6 @@
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
-
-    # Disable XFCE (unused under niri Wayland).
-    services.xserver.desktopManager.xfce.enable = false;
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -107,17 +106,22 @@
     ];
 
     programs.niri.enable = true;
-    programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+    programs.niri.package = selfPkgs.niri;
 
+    programs.mango.enable = true;
+    programs.mango.package = selfPkgs.mango;
+
+   services.desktopManager.plasma6.enable = true;
+   services.displayManager.defaultSession = lib.mkForce "mango";
     # Enable touchpad support (enabled default in most desktopManager).
     services.libinput.enable = true;
 
-    # Define a user account. Don't forget to set a password with 'passwd'.
+    # Define a user account. Don't forget to set a password with 'passwd'
     users.users."aapeli" = {
       isNormalUser = true;
       description = "Aapeli";
       extraGroups = [ "networkmanager" "wheel" "video" "audio" "input" "podman"];
-      shell = self.packages.${pkgs.stdenv.hostPlatform.system}.environment;
+      shell = selfPkgs.environment;
       packages = with pkgs; [
         thunderbird
       ];

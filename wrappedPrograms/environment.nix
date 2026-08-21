@@ -43,6 +43,7 @@
         self'.packages.jjui
         self'.packages.kitty
         self'.packages.neovim
+        self'.packages.mango
       ];
       env = {
         EDITOR = lib.getExe self'.packages.neovim;
