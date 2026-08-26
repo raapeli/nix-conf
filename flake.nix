@@ -25,6 +25,7 @@
 
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
+    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
   };
 
   outputs = inputs: let

@@ -11,6 +11,7 @@
       [
         self.nixosModules.nixosHardware
         self.nixosModules.firefox
+        self.nixosModules.idea
         self.nixosModules.podman
         self.nixosModules.tailscale
         self.nixosModules.syncthing
