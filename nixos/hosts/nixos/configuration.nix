@@ -1,6 +1,6 @@
 { self, inputs, ... }: {
   flake.nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = { inherit self; };
+    specialArgs = { inherit self inputs; };
     modules = [ self.nixosModules.hostNixos ];
   };
 
@@ -17,6 +17,7 @@
         self.nixosModules.syncthing
         inputs.nix-index-database.nixosModules.default
         { programs.nix-index-database.comma.enable = true; }
+        self.nixosModules.helium
       ];
 
     # Bootloader.
