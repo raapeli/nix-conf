@@ -88,6 +88,12 @@
         autostart_sh = ''
           ${noctaliaExe} &'';
         settings = {
+
+
+          animations = 1;
+          layer_animations = 1;
+          blur = 1;
+
           new_is_master = 1;
           default_mfact = 0.55;
           default_nmaster = 1;
@@ -219,6 +225,12 @@
 
                 "${mod}+CTRL,s,spawn,${screenshot}"
                 "${mod}+SHIFT,s,spawn,${screenshotFull}"
+
+                "NONE,XF86AudioMicMute,spawn, ${config.pkgs.alsa-utils}/bin/amixer sset Capture toggle"
+                "NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                "NONE, XF86AudioRaiseVolume,spawn, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+"
+                "NONE, XF86AudioLowerVolume, spawn, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-"
+
 
 
                 "${mod},d,spawn,${self.mkWhichKeyExe config.pkgs [
