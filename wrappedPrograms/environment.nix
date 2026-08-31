@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  self,
   ...
 }: {
   perSystem = {
@@ -30,8 +29,6 @@
         pkgs.lf
         pkgs.rbw
         pkgs.shotwell
-        pkgs.cargo
-        pkgs.clang pkgs.gcc
         pkgs.pinentry-curses
         pkgs.fuzzel
         pkgs.ddcutil
