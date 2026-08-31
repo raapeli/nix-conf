@@ -18,6 +18,7 @@
         inputs.nix-index-database.nixosModules.default
         { programs.nix-index-database.comma.enable = true; }
         self.nixosModules.helium
+        self.nixosModules.codium
       ];
 
     # Bootloader.
