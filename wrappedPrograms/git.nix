@@ -1,14 +1,24 @@
-{inputs, ...}: {
+{self, inputs, ...}: {
+  flake.wrappersModules.git = {
+    pkgs,
+    ...
+  }: { 
+      settings = {
+          user = {
+            name = "Aapeli Rautiainen";
+            email = "aapeli@rautiainen.info";
+          };
+          credential = {
+            "https://github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
+            "https://gist.github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
+          };
+        };
+
+    };
   perSystem = {pkgs, ...}: {
-    packages.git = inputs.wrappers.lib.wrapPackage {
+    packages.git = inputs.wrapper-modules.wrappers.git.wrap {
       inherit pkgs;
-      package = pkgs.git;
-      env = rec {
-        GIT_AUTHOR_NAME = "aapeli";
-        GIT_AUTHOR_EMAIL = "aapeli@rautiainen.info";
-        GIT_COMMITTER_NAME = GIT_AUTHOR_NAME;
-        GIT_COMMITTER_EMAIL = GIT_AUTHOR_EMAIL;
-      };
+      imports = [self.wrappersModules.git];
     };
   };
 }

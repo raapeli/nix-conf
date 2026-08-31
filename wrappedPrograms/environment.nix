@@ -45,6 +45,7 @@
       env = {
         EDITOR = lib.getExe self'.packages.neovim;
         TODO_DIR = "/home/aapeli/Documents/todo";
+        SSH_ASKPAS = "";
       };
     };
   };
