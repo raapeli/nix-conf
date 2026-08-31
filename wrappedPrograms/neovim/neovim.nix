@@ -298,6 +298,11 @@
           };
 
           web-devicons.enable = true;
+
+          lean ={
+            enable = true;
+            settings.mappings = true;
+          };
         };
       };
     };
