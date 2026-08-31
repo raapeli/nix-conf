@@ -30,6 +30,7 @@
 
     systemd.tpm2.enable = false;
     boot.initrd.systemd.tpm2.enable = false;
+    boot.tmp.cleanOnBoot = true;
 
 
     networking.hostName = "nixos"; # Define your hostname.
