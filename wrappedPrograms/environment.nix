@@ -33,6 +33,7 @@
         pkgs.fuzzel
         pkgs.ddcutil
         pkgs.tuxedo
+        pkgs.zathura
 
         # wrapped
         self'.packages.git
