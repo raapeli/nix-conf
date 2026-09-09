@@ -38,6 +38,11 @@
           snapshot = {
             max-new-file-size = "15MiB";
           };
+          signing = {
+            backend = "ssh";
+            key = "~/.ssh/id_ed25519_sign.pub";
+            sign-all = true;
+          };
         };
       }).wrapper;
     };
