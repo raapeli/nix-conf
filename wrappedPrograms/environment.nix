@@ -34,6 +34,7 @@
         pkgs.ddcutil
         pkgs.tuxedo
         pkgs.zathura
+        pkgs.signal-desktop
 
         # wrapped
         self'.packages.git
