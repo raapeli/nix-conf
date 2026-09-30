@@ -7,6 +7,11 @@
     packages.neovim = inputs.nixvim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.makeNixvimWithModule {
     inherit pkgs;
       module = {
+
+        #vs makes it so that lean can't be declarative
+        dependencies.lean.enable = false;
+        extraPackages = [pkgs.elan];
+
         colorschemes.gruvbox.enable = true;
 
         opts = {
