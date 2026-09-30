@@ -35,6 +35,7 @@
         pkgs.tuxedo
         pkgs.zathura
         pkgs.signal-desktop
+        pkgs.libqalculate
 
         # wrapped
         self'.packages.git
