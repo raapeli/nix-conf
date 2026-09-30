@@ -1,9 +1,12 @@
 {
   flake.nixosModules.laptop = { pkgs, ... }: {
     services.logind.settings.Login = {
-      HandleLidSwitch = "poweroff";
+      HandleLidSwitch = "lock";
       HandleLidSwitchExternalPower = "lock";
       HandleLidSwitchDocked = "ignore";
+
+      IdleAction = "suspend";
+      IdleActionSec = "10min";
     };
 
     services.upower.enable = true;
