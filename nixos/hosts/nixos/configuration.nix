@@ -33,8 +33,11 @@
     # Use latest kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    systemd.tpm2.enable = true;
-    boot.initrd.systemd.tpm2.enable = true;
+
+    
+    boot.initrd.luks.devices."luks-61d64e22-eb57-4e23-b189-a0ef07db21e0".device = "/dev/disk/by-uuid/61d64e22-eb57-4e23-b189-a0ef07db21e0";
+    systemd.tpm2.enable = false;
+    boot.initrd.systemd.tpm2.enable = false;
     boot.tmp.cleanOnBoot = true;
 
     networking.hostName = "nixos"; # Define your hostname.
