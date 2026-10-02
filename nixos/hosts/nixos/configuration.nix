@@ -33,8 +33,8 @@
     # Use latest kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    systemd.tpm2.enable = false;
-    boot.initrd.systemd.tpm2.enable = false;
+    systemd.tpm2.enable = true;
+    boot.initrd.systemd.tpm2.enable = true;
     boot.tmp.cleanOnBoot = true;
 
     networking.hostName = "nixos"; # Define your hostname.
@@ -67,8 +67,6 @@
         thunderbird
       ];
     };
-
-    programs.zsh.enable = true;
 
     programs.nix-index-database.comma.enable = true;
     programs.nix-index.enableFishIntegration = true;
