@@ -238,19 +238,15 @@
 
                 "${mod},d,spawn,${self.mkWhichKeyExe config.pkgs [
                   {
-                    key = "b";
-                    desc = "Bluetooth";
-                    cmd = "${noctaliaExe} msg panel-toggle bluetooth";
+                    key = "c";
+                    desc = "Control center";
+                    cmd = "${noctaliaExe} msg panel-toggle control-center";
                   }
-                  {
-                    key = "w";
-                    desc = "Wifi";
-                    cmd = "${noctaliaExe} msg panel-toggle wifi";
-                  }
+                  
                   {
                     key = "f";
-                    desc = "Firefox";
-                    cmd = "firefox";
+                    desc = "Helium";
+                    cmd = "helium";
                   }
                   {
                     key = "p";
@@ -259,8 +255,8 @@
                   }
                   {
                     key = "s";
-                    desc = "Pavucontrol";
-                    cmd = "${lib.getExe pkgs.pavucontrol}";
+                    desc = "Files";
+                    cmd = "${config.terminal} ${lib.getExe selfPkgs.yazi}";
                   }
                 ]}"
             ];
