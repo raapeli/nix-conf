@@ -131,8 +131,8 @@
             }
             {
               key = "s";
-              desc = "Pavucontrol";
-              cmd = "${lib.getExe pkgs.pavucontrol}";
+              desc = "Files";
+              cmd = "{lib.getExe yazi}"; 
             }
           ];
           "XF86AudioMicMute".spawn-sh = ''${config.pkgs.alsa-utils}/bin/amixer sset Capture toggle'';
@@ -228,6 +228,5 @@
       inherit pkgs;
       imports = [self.wrappersModules.niri];
     };
-
   };
 }
