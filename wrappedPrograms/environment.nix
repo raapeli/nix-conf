@@ -36,6 +36,7 @@
         pkgs.zathura
         pkgs.signal-desktop
         pkgs.libqalculate
+        pkgs.feh
 
         # wrapped
         self'.packages.git

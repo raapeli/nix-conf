@@ -5,6 +5,7 @@ inputs,
 }: {
   flake.wrappersModules.yazi = {
     wlib,
+    lib,
     pkgs,
     ...
   }: {
@@ -38,6 +39,9 @@ inputs,
       lazygit
       starship
       hexyl
+      feh
+      zathura
+      yazi
     ];
 
     settings.keymap.mgr.prepend_keymap = [
@@ -45,6 +49,11 @@ inputs,
         on = [ "l" ];
         run = "plugin smart-enter";
         desc = "Enter the child directory, or open the hovered file";
+      }
+      {
+        on = [ "<Enter>" ];
+        run = "plugin smart-enter";
+        desc = "Same as l";
       }
       {
         on = [ "g" "j" ];
@@ -57,6 +66,50 @@ inputs,
         desc = "Run lazygit";
       }
     ];
+
+    settings.yazi.opener = {
+      explore = [
+        {
+          run = "${lib.getExe pkgs.yazi} \"$0\"";
+          desc = "Open the folder in a new yazi instance";
+        }
+      ];
+      image = [
+        {
+          run = "${lib.getExe pkgs.feh} --auto-zoom --force-alias \"$@\"";
+          block = true;
+          desc = "Open the image(s) with feh";
+        }
+      ];
+      pdf = [
+        {
+          run = "${lib.getExe pkgs.zathura} \"$@\"";
+          block = true;
+          desc = "Open the document(s) with zathura";
+        }
+      ];
+    };
+
+    settings.yazi.open = {
+      prepend_rules = [
+        {
+          url = "*/";
+          use = "explore";
+        }
+        {
+          mime = "application/pdf";
+          use = "pdf";
+        }
+        {
+          mime = "image/*";
+          use = "image";
+        }
+        {
+          url = "*.pdf";
+          use = "pdf";
+        }
+      ];
+    };
 
     settings.yazi.plugin = {
       prepend_fetchers = [
