@@ -1,5 +1,4 @@
 {
-  self,
   inputs,
   ...
 }: {
@@ -303,6 +302,8 @@
           };
 
           web-devicons.enable = true;
+
+          flash.enable = true;
 
           lean ={
             enable = true;
