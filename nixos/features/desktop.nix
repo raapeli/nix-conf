@@ -29,6 +29,12 @@
       libvdpau-va-gl
     ];
 
+    # Desktop apps, installed system-wide so launchers see their .desktop entries
+    environment.systemPackages = [
+      selfPkgs.kitty
+      pkgs.signal-desktop
+    ];
+
     xdg.portal = {
       enable = true;
       extraPortals = [

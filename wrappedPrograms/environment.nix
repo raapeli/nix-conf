@@ -34,7 +34,6 @@
         pkgs.ddcutil
         pkgs.tuxedo
         pkgs.zathura
-        pkgs.signal-desktop
         pkgs.libqalculate
         pkgs.feh
 
