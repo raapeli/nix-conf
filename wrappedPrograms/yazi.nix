@@ -41,6 +41,8 @@ inputs,
       hexyl
       feh
       zathura
+      ghostscript
+      imagemagick
       yazi
     ];
 
@@ -133,6 +135,14 @@ inputs,
         {
           url = "*.tar*";
           run = "piper --format=url -- tar tf $1";
+        }
+        {
+          mime = "application/postscript";
+          run = "image";
+        }
+        {
+          url = "*.eps";
+          run = "image";
         }
       ];
       append_previewers = [
