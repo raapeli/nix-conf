@@ -106,12 +106,12 @@
         gru = "git reset --";
         grup = "git remote update";
         grv = "git remote -v";
-        gs = "git status";
+        gst = "git status";
         gsa = "git stash apply";
         gsh = "git show";
         gsi = "git submodule init";
         gss = "git status -s";
-        gst = "git stash";
+        gsth = "git stash";
         gsta = "git stash apply";
         gstc = "git stash clear";
         gstd = "git stash drop";
