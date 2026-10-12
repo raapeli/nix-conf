@@ -1,5 +1,9 @@
 [bar.default]
 center = [ "clock", "date" ]
+margin_ends = 0
+radius_top_left = 0
+radius_top_right = 0
+start = [ "workspaces" ]
 
 [lockscreen_widgets]
 enabled = false
@@ -92,6 +96,9 @@ widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@WL-1", "loc
         show_unlock_hint = true
         show_weather = true
 
+[shell.launcher.providers.emoji]
+global = true
+
 [theme]
 builtin = "Gruvbox"
 mode = "dark"
@@ -109,3 +116,9 @@ path = "/home/aapeli/Pictures/gruvbox-mountain-village.png"
 
 [widget.date]
 format = "{:%d.%m.%Y}"
+
+[widget.media]
+hide_when_no_media = true
+
+[widget.workspaces]
+hide_when_empty = true
