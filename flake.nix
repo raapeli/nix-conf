@@ -2,6 +2,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Pinned nixpkgs used ONLY for Mathematica.
+    mathematica-nixpkgs.url = "github:nixos/nixpkgs/02c087f3fe673c9e317f206a627cb6b910336dbe";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     wrapper-modules = {
