@@ -99,21 +99,21 @@
           blur = 1;
 
           new_is_master = 1;
-          default_mfact = 0.55;
-          default_nmaster = 1;
-          smartgaps = 1;
+          default_master_factor = 0.55;
+          default_master_count = 1;
+          smart_gaps = 1;
 
           hotarea_size = 10;
           enable_hotarea = 0;
-          overviewgappi = 5;
-          overviewgappo = 30;
+          overview_gap_inner = 5;
+          overview_gap_outer = 30;
 
           no_border_when_single = 1;
           axis_bind_apply_timeout = 100;
           focus_on_activate = 0;
-          idleinhibit_ignore_visible = 0;
-          sloppyfocus = 1;
-          warpcursor = 1;
+          idle_inhibit_ignore_visible = 0;
+          sloppy_focus = 1;
+          warp_cursor = 1;
           focus_cross_monitor = 0;
           focus_cross_tag = 0;
           enable_floating_snap = 0;
@@ -124,7 +124,7 @@
 
           repeat_rate = 40;
           repeat_delay = 250;
-          numlockon = 0;
+          numlock_on = 0;
           xkb_rules_layout = "fi";
 
           disable_trackpad = 0;
@@ -141,29 +141,30 @@
           mouse_accel_profile = 1;
           mouse_accel_speed = 0.0;
 
-          gappih = 5;
-          gappiv = 5;
-          gappoh = 10;
-          gappov = 10;
+          gap_inner_horizontal = 5;
+          gap_inner_vertical = 5;
+          gap_outer_horizontal = 10;
+          gap_outer_vertical = 10;
           scratchpad_width_ratio = 0.8;
           scratchpad_height_ratio = 0.9;
-          borderpx = 2;
+          border_px = 2;
 
-          rootcolor = "0x${self.themeNoHash.base00}ff";
-          bordercolor = "0x${self.themeNoHash.base00}ff";
-          focuscolor = "0x${self.themeNoHash.base0E}ff";
-          maximizescreencolor = "0x${self.themeNoHash.base0B}ff";
-          urgentcolor = "0x${self.themeNoHash.base08}ff";
-          scratchpadcolor = "0x${self.themeNoHash.base0A}00";
-          globalcolor = "0x${self.themeNoHash.base0E}ff";
-          overlaycolor = "0x${self.themeNoHash.base0C}ff";
+          root_color = "0x${self.themeNoHash.base00}ff";
+          border_color = "0x${self.themeNoHash.base00}ff";
+          focus_color = "0x${self.themeNoHash.base0E}ff";
+          maximized_screen_color = "0x${self.themeNoHash.base0B}ff";
+          urgent_color = "0x${self.themeNoHash.base08}ff";
+          scratchpad_color = "0x${self.themeNoHash.base0A}00";
+          global_color = "0x${self.themeNoHash.base0E}ff";
+          overlay_color = "0x${self.themeNoHash.base0C}ff";
 
+          auto_reload_config = 1;
 
-          windowrule = "isnamedscratchpad:1,width:1000,height:700,title:kitty-scratch";
+          window_rule = "is_named_scratchpad:1,width:1000,height:700,title:kitty-scratch";
  
           tag_num = 17;
 
-          tagrule = map (id: "id:${toString id},layout_name:tile") (lib.range 1 17);
+          tag_rule = map (id: "id:${toString id},layout_name:tile") (lib.range 1 17);
 
           bind = let 
               viewBinds = map (e: "${mod},${e.key},view,${toString e.ws}") wsKeys;
