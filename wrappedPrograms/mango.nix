@@ -235,6 +235,9 @@
                 "NONE, XF86AudioRaiseVolume,spawn, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+"
                 "NONE, XF86AudioLowerVolume, spawn, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-"
 
+                "NONE,XF86MonBrightnessUp,spawn,${config.pkgs.brightnessctl}/bin/brightnessctl set 5%+"
+                "NONE,XF86MonBrightnessDown,spawn,${config.pkgs.brightnessctl}/bin/brightnessctl set 5%-"
+
 
 
                 "${mod},d,spawn,${self.mkWhichKeyExe config.pkgs [
