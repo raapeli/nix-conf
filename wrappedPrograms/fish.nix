@@ -123,9 +123,13 @@
         gswc = "git switch -c";
         gts = "git tag -s";
         gup = "git pull --rebase";
-        gwch = "git whatchanged";
-        wtf = "git-wtf";
 
+        jst = "jj st";
+
+        ls = "eza --group-directories-first --icons=auto --color=auto";
+        ll = "eza -la --git --header --octal-permissions --group-directories-first --icons=auto --color=auto";  
+        la = "eza -la --git --header --group-directories-first --icons=auto --color=auto";
+        lt = "eza --tree --level=2 --group-directories-first --icons=auto --color=auto";
       };
 
       runtimePkgs = [pkgs.zoxide];
