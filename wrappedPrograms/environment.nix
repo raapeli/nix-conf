@@ -36,6 +36,7 @@
         pkgs.zathura
         pkgs.libqalculate
         pkgs.feh
+        pkgs.gcc
 
         # wrapped
         self'.packages.git
