@@ -47,5 +47,8 @@
       enable = true;
       wayland.enable = true;
     };
+
+
+    programs.direnv.enable = true;
   };
 }
