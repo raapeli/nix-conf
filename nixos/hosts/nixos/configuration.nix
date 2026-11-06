@@ -70,6 +70,7 @@
       shell = selfPkgs.environment;
       packages = with pkgs; [
         thunderbird
+
       ];
     };
 
@@ -97,6 +98,8 @@
       file
       gh
       python3
+      man-pages
+      man-pages-posix
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -118,6 +121,17 @@
     systemd.tmpfiles.rules = [
       "L+ /home/aapeli/Documents/todo - - - - /home/aapeli/sync/todo"
     ];
+
+    #enable man pages and apropos
+    documentation = {
+      enable = true;
+      man = {
+        enable = true;
+        cache.enable = true;
+      };
+      dev.enable = true;
+    };
+
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
