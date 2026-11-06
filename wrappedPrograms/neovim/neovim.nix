@@ -96,6 +96,12 @@
           }
           {
             mode = "n";
+            key = "<leader>fs";
+            action = "<cmd>Telescope lsp_document_symbols<CR>";
+            options.desc = "LSP symbols";
+          }
+          {
+            mode = "n";
             key = "K";
             action = "<cmd>lua vim.lsp.buf.hover()<CR>";
             options.desc = "LSP hover";
