@@ -1,5 +1,19 @@
 [bar.default]
 center = [ "clock", "date" ]
+end = [
+    "cpu",
+    "media",
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
 margin_ends = 0
 radius_top_left = 0
 radius_top_right = 0
@@ -27,7 +41,7 @@ widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@WL-1", "loc
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@WL-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -54,7 +68,7 @@ widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@WL-1", "loc
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -81,7 +95,7 @@ widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@WL-1", "loc
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@winit".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -113,6 +127,9 @@ path = "/home/aapeli/Pictures/gruvbox-mountain-village.png"
 
 [wallpaper.monitors.eDP-1]
 path = "/home/aapeli/Pictures/gruvbox-mountain-village.png"
+
+[widget.cpu]
+visualization = "none"
 
 [widget.date]
 format = "{:%d.%m.%Y}"
